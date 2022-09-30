@@ -9,7 +9,7 @@ from utils.util import log, error, critical, warning, debug
 log('kanbanize_connectordb')
 
 class Kanbanize(Base):
-    __tablename__ = 'kanbanize_test'
+    __tablename__ = config('TABLE')
     boardId = Column(Integer, primary_key = True)
     taskid = Column(Integer, primary_key = True)
     parentid = Column(Integer, nullable = True)

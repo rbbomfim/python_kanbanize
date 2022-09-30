@@ -9,7 +9,7 @@ from utils.util import log, error, critical, warning, debug
 log('controle_carga_connectordb')
 
 class Controle_Carga(Base):
-    __tablename__ = 'controle_carga_test'
+    __tablename__ = config('CONTROLE_CARGA')
     Processo = Column(String(20), primary_key = True)
     Data_Inicio_Carga = Column(DateTime, primary_key = True)
     Data_Fim_Carga = Column(DateTime, nullable = True, default=None)
