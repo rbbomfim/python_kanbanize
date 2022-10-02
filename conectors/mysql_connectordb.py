@@ -1,5 +1,4 @@
 from sqlalchemy import (create_engine, MetaData)
-#from datetime import datetime
 from decouple import config
 from sqlalchemy.orm import declarative_base, sessionmaker
 from utils.util import log, error, critical, warning, debug

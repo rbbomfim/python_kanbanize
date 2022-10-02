@@ -1,0 +1,42 @@
+Projeto Python executado dentro de container.
+Criado DockerFile conforme abaixo:
+-----Com esse DockerFile o cod em Python é importando dentro da imagem------
+FROM python:3.9-alpine
+#slim/alpine
+
+LABEL maintainer="rafael.bomfim@primecontrol.com.br"
+
+ARG TZ="America/Sao_Paulo"
+ENV TZ ${TZ}
+
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["python", "./main.py" ]
+----------------------------------------------------------------------------
+ou
+--------Com esse DockerFile o cod em Python é executado externamento--------
+FROM python:3.9-slim
+
+LABEL maintainer="rafael.bomfim@primecontrol.com.br"
+
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+
+ARG TZ="America/Sao_Paulo"
+ENV TZ ${TZ}
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["python3"]
+-----------------------------------------------------------------------------
+Criado duas imagens com python-slim
+- A primeira imagem carrega todos os boards dos projetos que o usuário configurado tem acesso (docker build -t kanbanize_extrator:1.0-full)
+- A segunda imagem carrega projetos listados no .env (docker build -t kanbanize_extrator:1.0-filter)
+
+Para executar o extrator dentro do container, executar o comando dentro de um terminal
+docker run --name kanbanize_extrator kanbanize_extrator<tag> (exemplo: docker run --name kanbanize_extrator kanbanize_extrator:1.0-filter) 
+ou
+docker run --rm --name kanbanize -v C:\Users\Rafael\OneDrive\Trabalho\Renner\Python:/usr/src/app -w /usr/src/app kanbanize_extrator:2.0-filter python main.py
+docker run --rm --name Kanbanize_Extractor -v C:\Users\Rafael\OneDrive\Trabalho\Renner\Python:/usr/src/app -w /usr/src/app kanbanize_extrator:2.0-filter python main.py

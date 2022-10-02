@@ -5,7 +5,7 @@ import pandas as pd
 import xmltodict
 from datetime import datetime
 from decouple import config
-from utils.util import log, error, critical, warning, debug
+from utils.util import log, error, critical, warning, debug, info
 
 
 log('kanbanize_extrator')
@@ -105,14 +105,14 @@ def getProjectsBoards():
     return df_project
 
 def getall_tasks(boardids): 
-    print("Iniciando o processo de leitura da API de GetAllTasks")
+    info("Iniciando o processo de leitura da API de GetAllTasks")
     if boardids:
         itensId = [int(x) for x in boardids.split(',')]
         df_itemId = pd.DataFrame(itensId, columns=['item_id'])
         itemId = df_itemId['item_id']
-        print("Processo de leitura de GetAllTasks baseado nos Ids informados")
+        info("Processo de leitura de GetAllTasks baseado nos Ids informados")
     else:
-        print("Processo de leitura de GetAllTasks baseado no nível de acesso do usuário")
+        info("Processo de leitura de GetAllTasks baseado no nível de acesso do usuário")
         df_project = getProjectsBoards()
         itemId = df_project.item_id
 
@@ -212,7 +212,7 @@ def getall_tasks(boardids):
                     ]
                 )
             try:
-                print("Inserido dados do board de id:" + str(itemId) + " dentro do DataFrame")
+                info("Inserido dados do board de id:" + str(itemId) + " dentro do DataFrame")
                 df_api = pd.DataFrame(
                     fields,
                     columns=[
@@ -247,7 +247,7 @@ def getall_tasks(boardids):
                 error("A quantidade de elementos da lista diverge dos elementos mapeados no dataframe")
 
         except KeyError:
-            warning(xml['xml']['Error'])
+            debug(xml['xml']['Error'])
             warning("Você não tem permissões para acessar a API do board:"+ str(itemId) + ". Entre em contato com o adm do seu espaço de trabalho")
 
         df_api['taskid']=df_api['taskid'].astype(int) # tranforma o taskid em inteiro
