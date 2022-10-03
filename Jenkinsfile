@@ -1,12 +1,7 @@
 pipeline {
     agent { dockerfile true }
     stages {
-        stage('Test') {
-            steps {
-                sh 'python3 --version'
-            }
-        }
-        stage('Executar'){
+        stage('Executar Extrator'){
             steps {
                 sh 'python main.py'
             }

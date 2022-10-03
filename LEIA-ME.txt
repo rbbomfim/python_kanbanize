@@ -40,3 +40,18 @@ docker run --name kanbanize_extrator kanbanize_extrator<tag> (exemplo: docker ru
 ou
 docker run --rm --name kanbanize -v C:\Users\Rafael\OneDrive\Trabalho\Renner\Python:/usr/src/app -w /usr/src/app kanbanize_extrator:2.0-filter python main.py
 docker run --rm --name Kanbanize_Extractor -v C:\Users\Rafael\OneDrive\Trabalho\Renner\Python:/usr/src/app -w /usr/src/app kanbanize_extrator:2.0-filter python main.py
+
+-- Jenkins ---
+Criado jenkinsfile
+----------------------------------------------------------------------------
+pipeline {
+    agent { dockerfile true }
+    stages {
+        stage('Executar Extrator'){
+            steps {
+                sh 'python main.py'
+            }
+        }
+    }
+}
+-----------------------------------------------------------------------------
