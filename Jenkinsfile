@@ -1,16 +1,10 @@
-#!groovy
 pipeline {
-	agent none
-  stages {
-  	stage('Python') {
-    	agent {
-      	docker {
-        	image 'python:3.9-slim'
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'python3 --version'
+            }
         }
-      }
-      steps {
-      	sh 'python3 --version'
-      }
     }
-  }
 }
