@@ -61,7 +61,7 @@ lista_excluir = Kanbanize.checkitem_delete(data_limite)
 if lista_excluir:
     for item in lista_excluir:
         count_delete += 1
-        print(f"Deletando o registro de id: {item.taskid}")
+        info(f"Deletando o registro de id: {item.taskid}")
         item.delete()
     session.commit()
 

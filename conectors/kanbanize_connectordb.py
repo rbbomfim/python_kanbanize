@@ -4,7 +4,7 @@ from datetime import datetime
 from decouple import config
 from conectors.mysql_connectordb import Base, session, db_connection
 import pandas as pd
-from utils.util import log, error, critical, warning, debug
+from utils.util import log, error, critical, warning, debug, info
 
 log('kanbanize_connectordb')
 
